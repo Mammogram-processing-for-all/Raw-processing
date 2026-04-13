@@ -1,4 +1,84 @@
-site_name: My Docs
-site_url: https://example.com/docs
+site_name: Mammogram Processing for All
+site_url: https://mammogram-processing-for-all.github.io/Raw-processing/
+site_author: Mammogram Processing for All
+site_description: Documentation for the Mammogram Processing for All project.
+
+# Repository
+repo_name: Mammogram-processing-for-all/Raw-processing
+repo_url: https://github.com/Mammogram-processing-for-all/Raw-processing
+
+# Configuration
 theme:
   name: material
+  features:
+    - navigation.footer
+    - content.footnote.tooltips
+
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/link
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off
+        name: Switch to system preference
+  font:
+    text: Roboto
+    code: Roboto Mono
+  # favicon: assets/favicon.png
+  icon:
+    logo: logo
+  # logo: assets/logo.png # You can use a custom logo by placing it in the `assets` directory and referencing it here.
+
+# Extensions
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.blocks.caption
+  - admonition
+  - pymdownx.details
+  - tables
+  - footnotes
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+# Page tree
+nav:
+  - Home: index.md
+  - Examples: examples.md
