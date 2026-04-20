@@ -82,3 +82,4 @@ extra_javascript:
 nav:
   - Home: index.md
   - Examples: examples.md
+  - LUT: lut.md
