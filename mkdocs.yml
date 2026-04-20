@@ -83,3 +83,5 @@ nav:
   - Home: index.md
   - Examples: examples.md
   - LUT: lut.md
+  - D:
+      d/DAICOM.md
