@@ -141,6 +141,13 @@ The align attribute doesn't allow for centered alignment, which is why this opti
 Image caption
 ///
 
+### With asset path
+![Image title](assets/images/veiws.png){ width="600" }
+/// caption
+Note: MkDocs treats the docs/ folder as the root. For an image located at docs/assets/images/example.png, use the path assets/images/example.png.
+///
+
+
 ## Math
 
 ### Block syntax
