@@ -81,5 +81,23 @@ extra_javascript:
 # Page tree
 nav:
   - Home: index.md
-  - Examples: examples.md
-  - LUT: lut.md
+  - Preprocessing:
+    - Pipeline Overview: preprocessing/pipeline-overview.md
+    - DICOM Basics: preprocessing/dicom-basics.md
+    - Windowing: preprocessing/windowing.md
+    - LUT: lut.md
+    - Breast Masking: preprocessing/masking.md
+    - Histogram Matching: preprocessing/histogram-matching.md
+    - CLAHE: preprocessing/clahe.md
+    - Denoising: preprocessing/denoising.md
+    - Laplacian Pyramid: preprocessing/laplacian-pyramid.md
+  - Quality Metrics:
+    - Overview: quality-metrics/index.md
+    - Pixel Error (MAE/MSE/PSNR): quality-metrics/pixel-error.md
+    - SSIM: quality-metrics/ssim.md
+    - MS-SSIM: quality-metrics/ms-ssim.md
+    - IoU: quality-metrics/iou.md
+    - Tenengrad: quality-metrics/tenengrad.md
+  - Clinical Background:
+    - Views (CC/MLO): clinical/views.md
+    - Lesion Types: clinical/lesion-types.md
