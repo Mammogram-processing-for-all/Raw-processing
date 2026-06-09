@@ -83,3 +83,5 @@ nav:
   - Home: index.md
   - Examples: examples.md
   - LUT: lut.md
+  - dukju_baseline: dukju_baseline.md
+  - dukju_gemma_skin: dukju_gemma_skin.md
