@@ -101,3 +101,6 @@ nav:
   - Clinical Background:
     - Views (CC/MLO): clinical/views.md
     - Lesion Types: clinical/lesion-types.md
+  - Personal research:
+    - dukju_baseline: dukju_baseline.md
+    - dukju_gemma_skin: dukju_gemma_skin.md
