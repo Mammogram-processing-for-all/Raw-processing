@@ -10,7 +10,7 @@
 
 따라서 다른 모든 전처리에 앞서 **유방 영역 마스크(binary mask)** 를 만들어야 한다. 마스크의 정확도는 곧 파이프라인 전체 품질의 상한선이다.
 
-## 1단계 — Otsu 이진화
+## 1단계 — Otsu 이진화 { #1-otsu }
 
 가장 단순한 방법은 Otsu의 임계값 자동 결정이다. 히스토그램이 "배경(어두움) vs 유방(밝음)" 두 봉우리로 나뉜다는 가정 아래, 클래스 간 분산을 최대화하는 임계값을 찾는다.
 
@@ -95,6 +95,23 @@ def adaptive_breast_mask(img: np.ndarray) -> np.ndarray:
 
 볼록 껍질은 유방 윤곽의 작은 들쭉날쭉함을 흡수해 후속 처리(특히 패치 추출)의 경계를 안정적으로 만든다. 실측에서 Otsu 단독 9.7~98% 변동이 **안정적인 85% 이상**으로 좁혀졌다.
 
+
+## RAW 직접 분할 — 히스토그램 밸리 임계값
+
+[RAW→DCM 복원](raw-to-dcm.md)처럼 윈도잉 전 16비트 RAW를 직접 다룰 때는, RAW 히스토그램이 "유방(낮은 강도) vs 배경(높은 강도)"으로 갈리는 **밸리(valley)** 를 임계값으로 쓰면 단순하고 안정적이다. 배경이 밝은 RAW에서는 임계값보다 **작은** 값이 유방이다.
+
+```python title="histogram_valley.py" linenums="1"
+def find_breast_threshold(raw_img, search_low=10000, search_high=30000, n_bins=1000):
+    hist, bins = np.histogram(raw_img.ravel(), bins=n_bins)
+    centers = (bins[:-1] + bins[1:]) / 2
+    rng = (centers > search_low) & (centers < search_high)   # 두 봉우리 사이만 탐색
+    valley = np.argmin(hist[rng])                            # 골짜기 = 임계값
+    return centers[rng][valley]
+
+mask = raw_img < find_breast_threshold(raw_img)              # 배경이 밝은 경우
+```
+
+이후 [형태학적 정리 + 최대 연결요소 + 구멍 메우기](#1-otsu)는 Otsu 경로와 동일하게 적용한다. 탐색 구간(`search_low/high`)은 디바이스 강도 분포에 맞춰 조정한다.
 
 ## 평가 — 마스크 겹침 (IoU)
 

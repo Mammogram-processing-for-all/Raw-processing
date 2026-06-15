@@ -12,6 +12,7 @@ DICOM 적재부터 디스플레이·모델 입력까지의 한 줄기 흐름을 
 - [Breast Masking](preprocessing/masking.md) — Otsu / Multi-Otsu / 적응형
 - [Histogram Matching](preprocessing/histogram-matching.md) — CDF 기반 비선형 매핑
 - [CLAHE](preprocessing/clahe.md), [Denoising](preprocessing/denoising.md), [Laplacian Pyramid](preprocessing/laplacian-pyramid.md) — 대비 강화
+- [RAW → DCM Restoration](preprocessing/raw-to-dcm.md) — 강도 선형화·halo 방지·톤 매핑을 묶은 복원 가이드
 - [Quality Metrics](quality-metrics/index.md) — MAE/SSIM/PSNR/IoU/Tenengrad
 
 ### Clinical Background — 영상이 의미하는 것

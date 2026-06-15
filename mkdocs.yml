@@ -91,6 +91,7 @@ nav:
     - CLAHE: preprocessing/clahe.md
     - Denoising: preprocessing/denoising.md
     - Laplacian Pyramid: preprocessing/laplacian-pyramid.md
+    - RAW → DCM Restoration: preprocessing/raw-to-dcm.md
   - Quality Metrics:
     - Overview: quality-metrics/index.md
     - Pixel Error (MAE/MSE/PSNR): quality-metrics/pixel-error.md
