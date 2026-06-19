@@ -110,4 +110,49 @@ pydicom은 픽셀 데이터를 자동으로 압축 해제하지만, **MONOCHROME
 | 상관계수 | RAW vs DCM ≈ −0.97 (역상관) | — |
 | 메타데이터 | 없음 | 풍부 |
 
-RAW에서 DCM 수준의 표시 이미지를 만드는 과정에는 단순 반전 외에도 [윈도잉](windowing.md), [LUT](../lut.md), [유방 영역 마스킹](masking.md) 등 여러 단계가 끼어든다.
+RAW에서 DCM 수준의 표시 이미지를 만드는 과정에는 단순 반전 외에도 [윈도잉](windowing.md), [LUT](../lut.md), [유방 영역 마스킹](masking.md) 등 여러 단계가 끼어든다. 전체 흐름은 [RAW → DCM 복원](raw-to-dcm.md) 참고.
+
+## 출력 DICOM 패키징 { #dicom }
+
+처리 결과를 다시 DICOM으로 저장해 뷰어·PACS 워크플로우와 호환시키려면, 원본 헤더를 뼈대로 쓰되 몇 가지를 반드시 갱신해야 한다.
+
+```python title="save_presentation_dicom.py" linenums="1"
+import pydicom, numpy as np
+
+def save_as_presentation_dicom(img_u16, reference_dcm_path, output_path):
+    dcm = pydicom.dcmread(reference_dcm_path)
+
+    # 1) 새 UID — 원본 UID 유지 시 PACS가 원본을 덮어쓸 위험
+    dcm.SOPInstanceUID    = pydicom.uid.generate_uid()
+    dcm.SeriesInstanceUID = pydicom.uid.generate_uid()
+    if hasattr(dcm, "file_meta"):
+        dcm.file_meta.MediaStorageSOPInstanceUID = dcm.SOPInstanceUID
+
+    # 2) 파생 영상 표시
+    dcm.ImageType = ["DERIVED", "SECONDARY", "OTHER"]
+    dcm.DerivationDescription = "Mammography Enhancement Pipeline Output"
+
+    # 3) 픽셀 교체
+    dcm.PixelData = img_u16.tobytes()
+    dcm.Rows, dcm.Columns = img_u16.shape
+
+    # 4) Window 레벨 = 전경 백분위 (배경 0 제외)
+    fg = img_u16[img_u16 > 0]
+    p_min, p_max = np.percentile(fg, (2, 98))
+    dcm.WindowCenter = int((p_max + p_min) / 2)
+    dcm.WindowWidth  = int(p_max - p_min)
+
+    # 5) 16-bit 비부호 픽셀 + Padding
+    dcm.BitsAllocated, dcm.BitsStored, dcm.HighBit = 16, 16, 15
+    dcm.PixelRepresentation = 0
+    dcm.add_new([0x0028, 0x0120], "US", 0)   # PixelPaddingValue
+
+    pydicom.dcmwrite(output_path, dcm)
+```
+
+| 갱신 항목 | 이유 |
+|----------|------|
+| `SOPInstanceUID` / `SeriesInstanceUID` 신규 | **원본 UID 유지 시 PACS에서 원본을 덮어씀** |
+| `ImageType = DERIVED/SECONDARY` | 원본이 아닌 파생 영상임을 명시 |
+| `WindowCenter/Width` 재계산 | 처리 후 강도 분포가 바뀌었으므로 ([Windowing](windowing.md)) |
+| `BitsStored/HighBit/PixelRepresentation` | 픽셀 dtype과 헤더 불일치 방지 |

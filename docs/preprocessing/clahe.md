@@ -80,6 +80,25 @@ def masked_clahe(img_u8, mask, clip_limit=0.03, tile_grid=(8, 8)):
     return out
 ```
 
+## 16-bit ROI 부분 적용 (blend) { #16-bit-roi }
+
+표시용 8비트로 줄이기 전 **16비트 그대로** CLAHE를 적용하면 정보 손실을 줄일 수 있다(`clip_limit`은 낮게). 또한 강화 강도를 미세 조절하려면 결과를 통째로 쓰지 말고 **원본과 가중 혼합(blend)** 한다 — 과증폭과 노이즈를 억제하면서 대비만 일부 끌어올린다. 연산은 마스크의 ROI 박스 안에서만 수행해 비용을 줄인다([RAW→DCM 복원](raw-to-dcm.md)의 표시 렌더링 단계에서 사용).
+
+```python title="clahe_16bit_blend.py"
+def clahe_roi_blend(img_u16, mask, clip_limit=1.0, tile=(16, 16), blend=0.1):
+    clahe = cv2.createCLAHE(clipLimit=clip_limit, tileGridSize=tile)
+    ys, xs = np.where(mask > 0)
+    y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+    roi = img_u16[y0:y1, x0:x1]
+    enhanced = clahe.apply(roi)                                  # uint16 그대로
+    blended = cv2.addWeighted(enhanced, blend, roi, 1.0 - blend, 0)
+    out = img_u16.copy()
+    out[y0:y1, x0:x1][mask[y0:y1, x0:x1] > 0] = blended[mask[y0:y1, x0:x1] > 0]
+    return out
+```
+
+`blend=0.1`이면 CLAHE 효과를 10%만 섞는다. 미세석회화 가시화처럼 강하게 강조해야 할 때는 비중을 높인다.
+
 ## 한계
 
 - 미세석회화 같은 **고주파 디테일은 CLAHE만으로 충분히 강조되지 않는다** — [Laplacian Pyramid](laplacian-pyramid.md) 등 주파수 분해와 결합

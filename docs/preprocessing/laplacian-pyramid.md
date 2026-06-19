@@ -161,6 +161,29 @@ graph LR
   C --> O[Output]
 ```
 
+## Guided Filter 다단 분해 { #guided-filter }
+
+LP가 가우시안 흐림으로 대역을 나눈다면, **Guided Filter**는 에지를 보존하며 저주파(base)를 추정한다. radius를 바꿔가며 여러 번 적용하면 LP와 유사하게 **스케일별 분리**를 얻되, 경계가 더 또렷하다. [RAW→DCM 복원](raw-to-dcm.md)의 물리 기반 전략에서 쓰인 3단(3-tier) 분해 예:
+
+```python title="guided_decomposition.py"
+def stage_decomposition(img, mask, radius_global=150, radius_regional=50,
+                        eps_global=0.01, eps_regional=0.001, pyr_levels=5):
+    g = _guided_filter_masked(img, mask, radius_global,   eps_global)   # 초저주파 두께
+    m = _guided_filter_masked(img, mask, radius_regional, eps_regional) # 중주파 조직
+    global_layer   = g
+    regional_layer = m - g          # 중간 대역
+    detail_layer   = img - m        # 고주파 미세구조
+    # detail 은 LP 로 다중 스케일 증폭 후 합성
+    lp, residual    = build_lp_true(detail_layer, pyr_levels)
+    enhanced_detail = reconstruct_true(lp, residual, [0.5, 1.0, 1.5, 2.0, 2.5])
+    return global_layer, regional_layer, enhanced_detail
+```
+
+!!! warning "마스크 경계 halo"
+    Guided Filter를 마스크 영상에 그대로 적용하면 배경(0)이 경계로 번져 halo가 생긴다. 적용 전에 **배경을 전경값으로 채우고**(정규화 컨볼루션) 적용 후 배경을 다시 0으로 복원하는 `_guided_filter_masked` 래핑이 필요하다. 같은 halo 함정은 [경계 두께 보정](raw-to-dcm.md#2-halo)에서도 다룬다.
+
+OpenCV의 `cv2.ximgproc.guidedFilter`가 필요하다(`opencv-contrib-python`).
+
 ## sigmoid LUT와의 관계
 
 [`lut.md`](../lut.md)에서 다루는 sigmoid LUT는 **단조(monotonic) 픽셀별 매핑**이다. 공간 정보를 보지 않는다. LP는 반대로 공간 주파수 정보에 작용한다.
