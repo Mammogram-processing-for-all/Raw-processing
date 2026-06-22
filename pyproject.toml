@@ -3,8 +3,16 @@ name = "raw-processing"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 dependencies = [
+    "numpy>=2.2.6",
+    "opencv-python-headless>=4.13.0.92",
+    "pydicom>=3.0.2",
+    "pyside6>=6.11.1",
+]
+
+[project.optional-dependencies]
+docs = [
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.7.6",
 ]
