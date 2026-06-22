@@ -387,11 +387,15 @@ class MainWindow(QMainWindow):
         self._thread.start()
 
     def _on_progress(self, step: int, total: int, label: str) -> None:
-        if self._progress is None:
+        # 모달 QProgressDialog.setValue()는 내부적으로 processEvents()를 돌려
+        # finished 시그널이 재진입하면서 self._progress를 None으로 만들 수 있다.
+        # 로컬 참조로 잡고, 이벤트를 펌프하는 setValue()는 맨 마지막에 호출한다.
+        dlg = self._progress
+        if dlg is None:
             return
-        self._progress.setMaximum(total)
-        self._progress.setValue(step)
-        self._progress.setLabelText(f"{label} ({step}/{total})")
+        dlg.setMaximum(total)
+        dlg.setLabelText(f"{label} ({step}/{total})")
+        dlg.setValue(step)
 
     def _on_finished(self, result: np.ndarray, elapsed: float) -> None:
         self.image_view.set_source(self._to_pixmap(result))
