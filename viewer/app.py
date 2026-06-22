@@ -23,15 +23,11 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-# 엔진 import. `pip install -e ../engine` 로 설치되어 있으면 그대로 import 되고,
-# 설치 전(개발 중)이면 엔진 디렉터리를 경로에 추가하는 폴백을 사용한다.
-try:
-    from main import DEFAULT_PARAMS, PIPELINE_STEPS, basic_pipeline
-except ModuleNotFoundError:
-    ENGINE_DIR = Path(__file__).resolve().parent.parent / "engine"
-    if str(ENGINE_DIR) not in sys.path:
-        sys.path.insert(0, str(ENGINE_DIR))
-    from main import DEFAULT_PARAMS, PIPELINE_STEPS, basic_pipeline  # noqa: E402
+# 엔진(engine/)은 같은 단일 패키지 트리의 디렉터리이므로 import 경로에 추가해서 가져온다.
+ENGINE_DIR = Path(__file__).resolve().parent.parent / "engine"
+if str(ENGINE_DIR) not in sys.path:
+    sys.path.insert(0, str(ENGINE_DIR))
+from main import DEFAULT_PARAMS, PIPELINE_STEPS, basic_pipeline  # noqa: E402
 
 DEFAULT_HEIGHT = 3816
 DEFAULT_WIDTH = 3048

@@ -39,6 +39,12 @@ pip install .
 
 ---
 
+### Viewer
+
+```bash
+python viewer/app.py
+```
+
 ### Docs
 
 Docs tooling lives in the optional `docs` extra:
