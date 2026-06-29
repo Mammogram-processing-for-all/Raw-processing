@@ -1,0 +1,1801 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Mammogram Processing for All project.">
+      
+      
+        <meta name="author" content="Mammogram Processing for All">
+      
+      
+        <link rel="canonical" href="https://mammogram-processing-for-all.github.io/Raw-processing/foundations/mammography/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../system/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>맘모그램의 개념 - Mammogram Processing for All</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mammogram Processing for All" class="md-header__button md-logo" aria-label="Mammogram Processing for All" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89">
+  <path d="M3.136,17.387l0,42.932l42.932,21.467l-42.932,-64.399Z" />
+  <path d="M21.91,8l42.933,64.398l-18.775,9.388l-42.932,-64.399l18.774,-9.387Z" style="fill-opacity: 0.5" />
+  <path d="M67.535,17.387l-27.262,18.156l21.878,32.818l5.384,2.691l0,-53.665Z" />
+  <path d="M67.535,17.387l0,53.666l18.774,-9.388l0,-53.665l-18.774,9.387Z" style="fill-opacity: 0.25" />
+</svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mammogram Processing for All
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              맘모그램의 개념
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5M7 15a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Mammogram-processing-for-all/Raw-processing" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Mammogram-processing-for-all/Raw-processing
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mammogram Processing for All" class="md-nav__button md-logo" aria-label="Mammogram Processing for All" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89">
+  <path d="M3.136,17.387l0,42.932l42.932,21.467l-42.932,-64.399Z" />
+  <path d="M21.91,8l42.933,64.398l-18.775,9.388l-42.932,-64.399l18.774,-9.387Z" style="fill-opacity: 0.5" />
+  <path d="M67.535,17.387l-27.262,18.156l21.878,32.818l5.384,2.691l0,-53.665Z" />
+  <path d="M67.535,17.387l0,53.666l18.774,-9.388l0,-53.665l-18.774,9.387Z" style="fill-opacity: 0.25" />
+</svg>
+
+    </a>
+    Mammogram Processing for All
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Mammogram-processing-for-all/Raw-processing" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Mammogram-processing-for-all/Raw-processing
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    홈
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    기초
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    기초
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    맘모그램의 개념
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    맘모그램의 개념
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        유방촬영술이란
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        임상적 목적: 선별검사와 진단검사
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        정상 유방의 방사선학적 구성
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="정상 유방의 방사선학적 구성">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breast-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        유방 밀도(breast density)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        핵심 소견(key findings)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        표준 촬영 자세(view)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bi-rads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BI-RADS 판독 체계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        왜 영상 처리가 임상적으로 중요한가
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        참고문헌
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    장비의 기본 구조
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xray-physics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    X-ray의 성질과 감쇠
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../detector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    디지털 디텍터와 비선형성
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    영상 형성과 톤 매핑
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    영상 형성과 톤 매핑
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../image-formation/pipeline-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    처리 파이프라인 개요
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../image-formation/characteristic-curves/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    특성 곡선과 톤 매핑
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../image-formation/windowing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windowing / WW·WL / Flatten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    영상 품질 지표
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    영상 품질 지표
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../image-quality/metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MTF·NPS·DQE·CNR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    처리 기법
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    처리 기법
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    기법 개요와 분류
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/lut/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LUT (Look-Up Table)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/point-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    점 연산 (Windowing·Gamma·CLAHE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/smoothing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smoothing과 Denoising
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/sharpening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharpening과 Edge Enhancement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/contrast-enhancement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contrast Enhancement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/multiscale/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    다중스케일 분해와 변환영역
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/peripheral-equalization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Peripheral Equalization과 두께 보상
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/modern-dl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    최신 동향 (딥러닝)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    사례 연구
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    사례 연구
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pipeline/three-tier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3-Tier 향상 파이프라인
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Personal research
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Personal research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dukju_baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dukju_baseline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dukju_gemma_skin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dukju_gemma_skin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    참고문헌
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    부록 - Markdown 작성 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        유방촬영술이란
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        임상적 목적: 선별검사와 진단검사
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        정상 유방의 방사선학적 구성
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="정상 유방의 방사선학적 구성">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breast-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        유방 밀도(breast density)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        핵심 소견(key findings)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        표준 촬영 자세(view)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bi-rads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BI-RADS 판독 체계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        왜 영상 처리가 임상적으로 중요한가
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        참고문헌
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">맘모그램의 개념과 임상적 배경<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">요약</p>
+<p>이 페이지는 유방촬영술(mammography)의 정의와 임상적 목적, 정상 유방의 방사선학적 구성, 그리고 영상에서 찾아내야 할 핵심 소견(종괴, 미세석회화, 구조 왜곡, 비대칭)을 정리한다. 표준 촬영 자세와 BI-RADS 판독 체계를 간단히 소개하고, 왜 저대조도 병변과 미세석회를 동시에 보여 주어야 하는 과제가 영상 처리(image processing)를 임상적으로 필수적인 단계로 만드는지 설명한다.</p>
+</div>
+<h2 id="_2">유방촬영술이란<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>유방촬영술(mammography)은 저에너지 X-ray를 이용해 유방의 연조직(soft tissue)을 영상화하는 투과 영상(projection imaging) 기법이다. 일반적인 흉부·골격 촬영과 달리 유방은 거의 전부가 연조직(지방, 섬유선조직)으로 구성되어 있어 구성 조직 간 감쇠 차이가 매우 작다. 따라서 미세한 <a href="../xray-physics/">대조도(subject contrast)</a>를 끌어내기 위해 25~32 kVp 수준의 낮은 관전압과 Mo/Rh/W 계열의 특수 표적·필터 조합을 사용한다. 장비 구조의 세부는 <a href="../system/">유방촬영 장비의 기본 구조</a>에서 다룬다.</p>
+<p>목표는 임상적으로 의미 있는 두 종류의 정보를 동시에 보존하는 것이다.</p>
+<ul>
+<li><strong>저주파(low-frequency) 대조도</strong>: 종괴(mass)·비대칭처럼 넓은 영역에 걸친 미묘한 밝기 차이.</li>
+<li><strong>고주파(high-frequency) 세부</strong>: 미세석회화(microcalcification)처럼 수십~수백 µm 크기의 작은 고대비 구조.</li>
+</ul>
+<p>이 두 요구가 본질적으로 상충(trade-off)하기 때문에, 단순 선형 표시로는 진단에 충분하지 않고 다중 스케일(multi-scale) 처리가 필요하다.</p>
+<h2 id="_3">임상적 목적: 선별검사와 진단검사<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">선별검사 (Screening)</label><label for="__tabbed_1_2">진단검사 (Diagnostic)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>무증상(asymptomatic) 인구를 대상으로 유방암을 조기 발견하기 위해 정기적으로 시행한다. 표준적으로 양측 유방에 대해 CC와 MLO 두 뷰를 촬영한다. 검출 민감도(sensitivity)와 위양성(false positive)률의 균형, 그리고 낮은 선량(low dose)이 핵심 요구 사항이다.</p>
+</div>
+<div class="tabbed-block">
+<p>증상이 있거나 선별검사에서 이상 소견이 발견된 환자를 대상으로, 병변을 정밀하게 특성화하기 위해 추가 뷰(확대 magnification, 압박 촬영 spot compression)나 다른 modality(초음파, MRI)와 병행해 시행한다.</p>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">조기 발견의 임상적 가치</p>
+<p>유방암은 조기에 발견될수록 생존율과 치료 선택지가 극적으로 개선된다. 특히 침윤성 병변으로 진행하기 전 단계인 관상피내암(DCIS, ductal carcinoma in situ)은 흔히 미세석회화 군집으로만 나타나며, 다른 임상적 징후가 없다. 즉 미세석회를 영상에서 안정적으로 드러내는 능력이 곧 조기 발견 능력과 직결된다.</p>
+</div>
+<h2 id="_4">정상 유방의 방사선학적 구성<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>유방 실질(parenchyma)은 방사선학적으로 크게 두 성분으로 환원된다.</p>
+<table>
+<thead>
+<tr>
+<th>조직</th>
+<th>상대적 X-ray 감쇠</th>
+<th>영상에서의 외관</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지방조직(adipose/fatty tissue)</td>
+<td>낮음</td>
+<td>어둡게(투과 많음) 보임 — radiolucent</td>
+</tr>
+<tr>
+<td>섬유선조직(fibroglandular tissue)</td>
+<td>높음</td>
+<td>밝게(투과 적음) 보임 — radiodense</td>
+</tr>
+</tbody>
+</table>
+<p>저에너지 대역에서 두 조직 사이의 <a href="../xray-physics/">감쇠 계수</a> 차이는 작지만 0은 아니며, 이 작은 차이가 유방 실질 패턴(parenchymal pattern)으로 나타난다.</p>
+<h3 id="breast-density">유방 밀도(breast density)<a class="headerlink" href="#breast-density" title="Permanent link">&para;</a></h3>
+<p>유방 밀도는 전체 유방 부피 중 섬유선조직이 차지하는 비율을 가리킨다. 밀도가 높을수록(dense breast) 두 가지 임상적 문제가 생긴다.</p>
+<ol>
+<li><strong>마스킹 효과(masking effect)</strong>: 밝게 보이는 섬유선조직이 같은 정도로 밝은 종괴를 가려 검출 민감도를 떨어뜨린다.</li>
+<li><strong>위험 인자</strong>: 높은 밀도 자체가 유방암의 독립적 위험 인자로 보고된다.</li>
+</ol>
+<p>BI-RADS는 유방 밀도를 a(거의 지방)부터 d(극도로 치밀)까지 4단계로 분류한다. 밀도가 높은 유방일수록 영상 처리에서 국소 대조도(local contrast) 강조가 더 중요해진다.</p>
+<h2 id="key-findings">핵심 소견(key findings)<a class="headerlink" href="#key-findings" title="Permanent link">&para;</a></h2>
+<p>판독 시 찾아야 할 대표적 비정상 소견은 다음과 같다.</p>
+<details class="info">
+<summary>종괴 (Mass)</summary>
+<p>3차원 공간을 점유하는 병변으로, 서로 다른 두 뷰에서 모두 관찰될 때 신뢰할 수 있다. 형태(shape: 원형/타원형/불규칙), 경계(margin: 경계 명확/미세분엽/침상 spiculated), 밀도로 특성화한다. 침상 경계(spiculation)는 악성을 강하게 시사한다. 종괴는 주로 <strong>저주파~중간 주파수</strong> 대조도 정보로 표현된다.</p>
+</details>
+<details class="info">
+<summary>미세석회화 (Microcalcification)</summary>
+<p>칼슘 침착으로 인한 작고 밝은 점으로, 크기는 대략 <strong>수십~수백 µm</strong>에 불과하다. 형태(다형성 pleomorphic, 미세선상 fine linear branching)와 분포(군집 clustered, 선상 linear, 분절 segmental)가 악성 여부 판단에 핵심이다. 미세하고 고대비이므로 <strong>고주파(high-frequency) 정보</strong>로 표현되며, 검출은 detector의 <a href="../../image-quality/metrics/">공간 해상도(MTF)</a>와 고주파 강조 처리에 결정적으로 의존한다.</p>
+</details>
+<details class="info">
+<summary>구조 왜곡 (Architectural distortion)</summary>
+<p>뚜렷한 종괴 없이 유방 실질의 정상적인 방사상 구조가 한 점으로 끌려 들어가거나 왜곡된 상태. 미묘하고 배경 패턴에 묻히기 쉬워, 국소 대조도와 방향성 구조의 보존이 검출에 중요하다.</p>
+</details>
+<details class="info">
+<summary>비대칭 (Asymmetry)</summary>
+<p>양측 유방을 비교하거나 한 유방 내 영역을 비교했을 때 나타나는 조직 분포의 불균형. 진성 비대칭(true asymmetry), 국소 비대칭(focal asymmetry), 발달 비대칭(developing asymmetry)으로 구분한다.</p>
+</details>
+<h2 id="view">표준 촬영 자세(view)<a class="headerlink" href="#view" title="Permanent link">&para;</a></h2>
+<p>선별검사의 표준 조합은 각 유방당 두 뷰이다.</p>
+<ul>
+<li><strong>CC (craniocaudal, 상하방향)</strong>: 위에서 아래로 압박·촬영. 내측(medial)과 외측(lateral) 실질을 잘 보여 준다.</li>
+<li><strong>MLO (mediolateral oblique, 내외사위방향)</strong>: 약 45° 사위 방향으로 촬영. 흉근(pectoral muscle)과 상부 외측(upper outer quadrant)을 포함해 유방 조직을 가장 넓게 포괄하는 뷰이다.</li>
+</ul>
+<p>두 뷰를 함께 보는 이유는, 한 뷰에서만 보이는 소견은 조직 겹침(superimposition)에 의한 가짜 소견일 수 있으나 서로 다른 투영 방향에서 모두 확인되면 실제 병변일 가능성이 높기 때문이다.</p>
+<h2 id="bi-rads">BI-RADS 판독 체계<a class="headerlink" href="#bi-rads" title="Permanent link">&para;</a></h2>
+<p>BI-RADS(Breast Imaging Reporting and Data System)는 미국방사선학회(ACR)가 표준화한 보고·평가 체계로, 판독 결과를 다음 범주로 분류한다.</p>
+<table>
+<thead>
+<tr>
+<th>범주</th>
+<th>의미</th>
+<th>권고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>불완전 — 추가 영상 필요</td>
+<td>추가 검사</td>
+</tr>
+<tr>
+<td>1</td>
+<td>음성(negative)</td>
+<td>정기 검진</td>
+</tr>
+<tr>
+<td>2</td>
+<td>양성(benign) 소견</td>
+<td>정기 검진</td>
+</tr>
+<tr>
+<td>3</td>
+<td>양성 추정(probably benign)</td>
+<td>단기 추적</td>
+</tr>
+<tr>
+<td>4</td>
+<td>의심(suspicious)</td>
+<td>조직 검사 고려</td>
+</tr>
+<tr>
+<td>5</td>
+<td>악성 강력 시사</td>
+<td>조직 검사</td>
+</tr>
+<tr>
+<td>6</td>
+<td>조직학적으로 확인된 악성</td>
+<td>임상적 처치</td>
+</tr>
+</tbody>
+</table>
+<p>BI-RADS는 또한 영상 품질과 유방 밀도 기술을 표준화하여, 영상 처리 파이프라인이 만족해야 할 일관성(consistency) 요구의 임상적 근거가 된다.</p>
+<h2 id="_5">왜 영상 처리가 임상적으로 중요한가<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>원시 검출 신호(RAW)는 <a href="../xray-physics/">Beer–Lambert 법칙</a>에 따라 조직 두께와 감쇠에 <strong>지수적으로</strong> 의존하므로, 그대로 표시하면 동적 범위(dynamic range)가 한쪽으로 치우쳐 진단 정보가 묻힌다. 임상적 과제는 다음 두 요구를 한 영상에서 동시에 만족하는 것이다.</p>
+<ol>
+<li>넓은 동적 범위(두꺼운 중심부 ~ 얇은 변연부)를 하나의 화면 계조로 압축.</li>
+<li>그 과정에서 저대조도 종괴와 고주파 미세석회를 <strong>모두</strong> 시각적으로 보존.</li>
+</ol>
+<pre class="mermaid"><code>flowchart LR
+    A[RAW 신호&lt;br/&gt;지수적 동적 범위] --&gt; B[log 선형화]
+    B --&gt; C[다중 스케일 분해&lt;br/&gt;global / regional / detail]
+    C --&gt; D[톤 압축 + 국소 대조도 강조]
+    D --&gt; E[for-presentation 영상&lt;br/&gt;종괴 + 미세석회 동시 가시화]</code></pre>
+<p>특히 미세석회 검출이 고해상도·고주파 강조와 직결되는 이유는, 미세석회의 신호가 수십~수백 µm 규모의 작은 공간 주파수 성분에 집중되어 있어 톤 압축 과정에서 쉽게 손실되기 때문이다. 따라서 <a href="../../techniques/">처리 기법</a>에서는 신호를 <a href="../../image-formation/characteristic-curves/">특성 곡선</a>을 통해 선형화한 뒤, 다중 스케일로 분해하여 고주파 detail 계층을 별도로 강조하는 전략을 취한다.</p>
+<h2 id="_6">참고문헌<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ul>
+<li>J. T. Bushberg, J. A. Seibert, E. M. Leidholdt, J. M. Boone, <em>The Essential Physics of Medical Imaging</em>, 3rd ed., Lippincott Williams &amp; Wilkins, 2011.</li>
+<li>American College of Radiology, <em>ACR BI-RADS Atlas: Breast Imaging Reporting and Data System</em>, 5th ed., 2013.</li>
+<li>N. F. Boyd et al., "Mammographic Density and the Risk and Detection of Breast Cancer," <em>New England Journal of Medicine</em>, 356(3):227–236, 2007.</li>
+<li>M. J. Yaffe, "Mammographic density. Measurement of mammographic density," <em>Breast Cancer Research</em>, 10(3):209, 2008.</li>
+<li>IAEA, <em>Quality Assurance Programme for Digital Mammography</em>, IAEA Human Health Series No. 17, 2011.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: 홈">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                홈
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../system/" class="md-footer__link md-footer__link--next" aria-label="Next: 장비의 기본 구조">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                장비의 기본 구조
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "content.footnote.tooltips"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

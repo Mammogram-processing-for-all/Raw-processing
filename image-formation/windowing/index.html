@@ -1,0 +1,1999 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Mammogram Processing for All project.">
+      
+      
+        <meta name="author" content="Mammogram Processing for All">
+      
+      
+        <link rel="canonical" href="https://mammogram-processing-for-all.github.io/Raw-processing/image-formation/windowing/">
+      
+      
+        <link rel="prev" href="../characteristic-curves/">
+      
+      
+        <link rel="next" href="../../image-quality/metrics/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Windowing / WW·WL / Flatten - Mammogram Processing for All</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#windowing-window-widthlevel-flatten" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mammogram Processing for All" class="md-header__button md-logo" aria-label="Mammogram Processing for All" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89">
+  <path d="M3.136,17.387l0,42.932l42.932,21.467l-42.932,-64.399Z" />
+  <path d="M21.91,8l42.933,64.398l-18.775,9.388l-42.932,-64.399l18.774,-9.387Z" style="fill-opacity: 0.5" />
+  <path d="M67.535,17.387l-27.262,18.156l21.878,32.818l5.384,2.691l0,-53.665Z" />
+  <path d="M67.535,17.387l0,53.666l18.774,-9.388l0,-53.665l-18.774,9.387Z" style="fill-opacity: 0.25" />
+</svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mammogram Processing for All
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Windowing / WW·WL / Flatten
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5M7 15a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Mammogram-processing-for-all/Raw-processing" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Mammogram-processing-for-all/Raw-processing
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mammogram Processing for All" class="md-nav__button md-logo" aria-label="Mammogram Processing for All" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89">
+  <path d="M3.136,17.387l0,42.932l42.932,21.467l-42.932,-64.399Z" />
+  <path d="M21.91,8l42.933,64.398l-18.775,9.388l-42.932,-64.399l18.774,-9.387Z" style="fill-opacity: 0.5" />
+  <path d="M67.535,17.387l-27.262,18.156l21.878,32.818l5.384,2.691l0,-53.665Z" />
+  <path d="M67.535,17.387l0,53.666l18.774,-9.388l0,-53.665l-18.774,9.387Z" style="fill-opacity: 0.25" />
+</svg>
+
+    </a>
+    Mammogram Processing for All
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Mammogram-processing-for-all/Raw-processing" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Mammogram-processing-for-all/Raw-processing
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    홈
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    기초
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    기초
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../foundations/mammography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    맘모그램의 개념
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../foundations/system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    장비의 기본 구조
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../foundations/xray-physics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    X-ray의 성질과 감쇠
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../foundations/detector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    디지털 디텍터와 비선형성
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    영상 형성과 톤 매핑
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    영상 형성과 톤 매핑
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pipeline-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    처리 파이프라인 개요
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../characteristic-curves/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    특성 곡선과 톤 매핑
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windowing / WW·WL / Flatten
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windowing / WW·WL / Flatten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-windowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Windowing 개념
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-window-widthww-window-centerlevelwcwl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Window Width(WW)와 Window Center/Level(WC/WL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Window Width(WW)와 Window Center/Level(WC/WL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-ww" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 WW가 대조도에 주는 영향
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-dicom-percentile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. DICOM 연결과 percentile 기반 설정
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-worked-example-wwwl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Worked example: WW/WL 수치 매핑
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-flatten-illumination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Flatten(평탄화) / 조도(illumination) 보정
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Flatten(평탄화) / 조도(illumination) 보정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-flat-field-correction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Flat-field correction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 배경 추정 후 차감/나눗셈
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-peripheral-equalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Peripheral equalization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-windowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 히스토그램 기반 자동 windowing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 정리
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        참고문헌
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    영상 품질 지표
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    영상 품질 지표
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../image-quality/metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MTF·NPS·DQE·CNR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    처리 기법
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    처리 기법
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    기법 개요와 분류
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/lut/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LUT (Look-Up Table)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/point-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    점 연산 (Windowing·Gamma·CLAHE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/smoothing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smoothing과 Denoising
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/sharpening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharpening과 Edge Enhancement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/contrast-enhancement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contrast Enhancement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/multiscale/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    다중스케일 분해와 변환영역
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/peripheral-equalization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Peripheral Equalization과 두께 보상
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techniques/modern-dl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    최신 동향 (딥러닝)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    사례 연구
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    사례 연구
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pipeline/three-tier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3-Tier 향상 파이프라인
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Personal research
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Personal research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dukju_baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dukju_baseline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dukju_gemma_skin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dukju_gemma_skin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    참고문헌
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    부록 - Markdown 작성 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-windowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Windowing 개념
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-window-widthww-window-centerlevelwcwl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Window Width(WW)와 Window Center/Level(WC/WL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Window Width(WW)와 Window Center/Level(WC/WL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-ww" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 WW가 대조도에 주는 영향
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-dicom-percentile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. DICOM 연결과 percentile 기반 설정
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-worked-example-wwwl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Worked example: WW/WL 수치 매핑
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-flatten-illumination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Flatten(평탄화) / 조도(illumination) 보정
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Flatten(평탄화) / 조도(illumination) 보정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-flat-field-correction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Flat-field correction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 배경 추정 후 차감/나눗셈
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-peripheral-equalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Peripheral equalization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-windowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 히스토그램 기반 자동 windowing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 정리
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        참고문헌
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="windowing-window-widthlevel-flatten">Windowing, Window Width/Level, Flatten, 조도 조정<a class="headerlink" href="#windowing-window-widthlevel-flatten" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">요약</p>
+<p>Windowing은 12–16-bit의 넓은 비트 깊이로 획득한 영상에서 진단에 필요한 휘도
+구간만 선택해 표시용 8-bit로 매핑하는 점 연산(point operation)이다. 이 문서는
+Window Width(WW)와 Window Center/Level(WC/WL)의 정의·수식, DICOM 태그와의
+연결, percentile 기반 자동 windowing, 그리고 불균일한 배경 조도(illumination)를
+제거하는 평탄화(flatten)/flat-field correction과 peripheral equalization 개념을
+다룬다.</p>
+</div>
+<h2 id="1-windowing">1. Windowing 개념<a class="headerlink" href="#1-windowing" title="Permanent link">&para;</a></h2>
+<p>디텍터는 12–16-bit(예: <span class="arithmatex">\([0, 65535]\)</span>)로 신호를 기록하지만, 표시 장치와 사람 눈은
+한 화면에서 그만큼의 계조(gray level)를 구별하지 못한다. 일반 모니터의 표시 깊이는
+사실상 8-bit(<span class="arithmatex">\([0,255]\)</span>) 수준이다. 따라서 <strong>전체 입력 범위 중 관심 있는 부분 구간만</strong>
+골라 출력 범위 전체로 늘여 매핑한다. 이 부분 구간을 정의하는 것이 windowing이다.</p>
+<pre class="mermaid"><code>flowchart LR
+    A["입력 16-bit&lt;br/&gt;[0, 65535]"] --&gt; W{"window&lt;br/&gt;구간 선택"}
+    W --&gt; B["WC - WW/2&lt;br/&gt;이하 → 0 (검정)"]
+    W --&gt; C["window 구간&lt;br/&gt;→ 선형 매핑"]
+    W --&gt; D["WC + WW/2&lt;br/&gt;이상 → 255 (흰색)"]
+    B --&gt; O["출력 8-bit [0,255]"]
+    C --&gt; O
+    D --&gt; O</code></pre>
+<h2 id="2-window-widthww-window-centerlevelwcwl">2. Window Width(WW)와 Window Center/Level(WC/WL)<a class="headerlink" href="#2-window-widthww-window-centerlevelwcwl" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Window Center / Level (WC, WL):</strong> 선택 구간의 중심 휘도값. 이 값을 올리면 영상이
+  전체적으로 어두워지고, 내리면 밝아진다.</li>
+<li><strong>Window Width (WW):</strong> 선택 구간의 폭. 출력 전체 범위에 매핑되는 입력 범위의 크기.</li>
+</ul>
+<p>구간의 경계는</p>
+<div class="arithmatex">\[
+x_{\min} = \mathrm{WC} - \frac{\mathrm{WW}}{2}, \qquad
+x_{\max} = \mathrm{WC} + \frac{\mathrm{WW}}{2}
+\]</div>
+<p>이고, 출력 범위 <span class="arithmatex">\([0, y_{\max}]\)</span> (8-bit이면 <span class="arithmatex">\(y_{\max}=255\)</span>) 로의 매핑은</p>
+<div class="arithmatex">\[
+y = \operatorname{clip}\!\left(\frac{x - (\mathrm{WC} - \mathrm{WW}/2)}{\mathrm{WW}},\; 0,\; 1\right) \cdot y_{\max}
+\]</div>
+<p>로 쓴다. 즉 <span class="arithmatex">\(x_{\min}\)</span> 이하는 0, <span class="arithmatex">\(x_{\max}\)</span> 이상은 <span class="arithmatex">\(y_{\max}\)</span>, 그 사이는 선형 보간이다.</p>
+<div class="admonition warning">
+<p class="admonition-title">표기 주의: WH / WL / WC</p>
+<p>사용자 메모에 등장하는 "WH"는 표준 용어가 아니다.<sup id="fnref:wh"><a class="footnote-ref" href="#fn:wh">1</a></sup> 맥락에 따라 <strong>Window
+Height</strong> (= 출력 진폭, 일부 벤더 표기) 또는 <strong>Window Level/Center</strong> (= WL/WC)를
+혼용한 표기일 수 있다. 본 문서와 DICOM 표준에서는 구간의 중심을 <strong>Window Center
+(WC)</strong> 또는 <strong>Window Level (WL)</strong> 로, 폭을 <strong>Window Width (WW)</strong> 로 통일한다.</p>
+</div>
+<h3 id="21-ww">2.1 WW가 대조도에 주는 영향<a class="headerlink" href="#21-ww" title="Permanent link">&para;</a></h3>
+<p>윈도 구간의 기울기는 <span class="arithmatex">\(1/\mathrm{WW}\)</span> 이다. 따라서</p>
+<ul>
+<li><strong>WW ↓ (좁은 창):</strong> 기울기↑ → 대조도↑, 표현 가능한 휘도 범위↓. 좁은 신호 구간을
+  강조할 때(예: 특정 조직 대조도).</li>
+<li><strong>WW ↑ (넓은 창):</strong> 기울기↓ → 대조도↓, 표현 범위↑. 넓은 동적 범위를 한 화면에
+  담을 때.</li>
+</ul>
+<p>WC를 옮기면 강조되는 휘도대(어두운 쪽/밝은 쪽)가 이동한다.</p>
+<h2 id="3-dicom-percentile">3. DICOM 연결과 percentile 기반 설정<a class="headerlink" href="#3-dicom-percentile" title="Permanent link">&para;</a></h2>
+<p>DICOM에서 windowing 파라미터는 다음 태그로 저장된다.</p>
+<table>
+<thead>
+<tr>
+<th>태그</th>
+<th>이름</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(0028,1050)</td>
+<td>Window Center</td>
+<td>WC / WL</td>
+</tr>
+<tr>
+<td>(0028,1051)</td>
+<td>Window Width</td>
+<td>WW</td>
+</tr>
+<tr>
+<td>(0028,1052)</td>
+<td>Rescale Intercept</td>
+<td>Modality LUT 절편</td>
+</tr>
+<tr>
+<td>(0028,1053)</td>
+<td>Rescale Slope</td>
+<td>Modality LUT 기울기</td>
+</tr>
+</tbody>
+</table>
+<p>표시 소프트웨어는 이 값을 읽어 VOI(Value Of Interest) LUT로 적용한다(파이프라인은
+<a href="../../techniques/lut/">LUT</a> 참고). 본 프로젝트는 영상 히스토그램의 <strong>percentile</strong>로 WW/WC를
+자동 설정한다.</p>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">auto_window_from_percentiles</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">p_low</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">p_high</span><span class="o">=</span><span class="mf">99.5</span><span class="p">):</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;percentile로 black/white point를 잡아 DICOM WW/WC를 산출.&quot;&quot;&quot;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">vals</span> <span class="o">=</span> <span class="n">img</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">img</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">lo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">p_low</span><span class="p">)</span>    <span class="c1"># black point (clip 하한)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">hi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">p_high</span><span class="p">)</span>   <span class="c1"># white point (clip 상한)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">ww</span> <span class="o">=</span> <span class="n">hi</span> <span class="o">-</span> <span class="n">lo</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">wc</span> <span class="o">=</span> <span class="n">lo</span> <span class="o">+</span> <span class="n">ww</span> <span class="o">/</span> <span class="mf">2.0</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">ww</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">wc</span><span class="p">)</span>        <span class="c1"># DICOM (0028,1051), (0028,1050)</span>
+</span></code></pre></div>
+<p>percentile을 쓰면 소수의 극단값(잡음, 핫픽셀, 공기 영역)에 끌려가지 않고 유방
+조직의 실제 분포에 맞춘 창을 얻는다. 본 프로젝트의 black-point 클리핑(percentile
+3 / 99.5)이 바로 이 원리다.</p>
+<h2 id="4-worked-example-wwwl">4. Worked example: WW/WL 수치 매핑<a class="headerlink" href="#4-worked-example-wwwl" title="Permanent link">&para;</a></h2>
+<div class="admonition example">
+<p class="admonition-title">구체적 수치 예시</p>
+<p>16-bit 입력에서 percentile로 <span class="arithmatex">\(x_{\min}=8000\)</span>, <span class="arithmatex">\(x_{\max}=52000\)</span> 을 얻었다고 하자.</p>
+<ul>
+<li><span class="arithmatex">\(\mathrm{WW} = 52000 - 8000 = 44000\)</span></li>
+<li><span class="arithmatex">\(\mathrm{WC} = 8000 + 44000/2 = 30000\)</span></li>
+</ul>
+<p>이제 임의 입력값을 8-bit로 매핑한다(<span class="arithmatex">\(y_{\max}=255\)</span>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">입력 <span class="arithmatex">\(x\)</span></th>
+<th style="text-align: right;">정규화 <span class="arithmatex">\(\dfrac{x-8000}{44000}\)</span></th>
+<th style="text-align: right;">clip</th>
+<th style="text-align: right;">출력 <span class="arithmatex">\(y\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">6000</td>
+<td style="text-align: right;"><span class="arithmatex">\(-0.045\)</span></td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: right;">8000</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: right;">19000</td>
+<td style="text-align: right;">0.250</td>
+<td style="text-align: right;">0.250</td>
+<td style="text-align: right;">64</td>
+</tr>
+<tr>
+<td style="text-align: right;">30000</td>
+<td style="text-align: right;">0.500</td>
+<td style="text-align: right;">0.500</td>
+<td style="text-align: right;">128</td>
+</tr>
+<tr>
+<td style="text-align: right;">52000</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">255</td>
+</tr>
+<tr>
+<td style="text-align: right;">60000</td>
+<td style="text-align: right;">1.182</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">255</td>
+</tr>
+</tbody>
+</table>
+<p>WC=30000이 출력 중간값 128로 매핑되고, 창 밖의 값은 검정/흰색으로 포화됨을 볼 수 있다.</p>
+</div>
+<h2 id="5-flatten-illumination">5. Flatten(평탄화) / 조도(illumination) 보정<a class="headerlink" href="#5-flatten-illumination" title="Permanent link">&para;</a></h2>
+<p>Windowing은 <em>전역</em> 점 연산이라 위치에 따라 변하는 밝기 편차를 다루지 못한다.
+유방촬영 영상의 배경 조도는 다음 이유로 공간적으로 불균일하다.</p>
+<ul>
+<li><strong>두께 구배(thickness gradient):</strong> 압박 유방은 가장자리로 갈수록 얇아진다.</li>
+<li><strong>peripheral thinning:</strong> 피부선 근처에서 조직이 급격히 얇아져 매우 밝아진다.</li>
+<li><strong>heel effect:</strong> X-ray 관(tube)의 양극(anode) 쪽으로 강도가 감소하는 불균일.</li>
+</ul>
+<p>이런 저주파 배경 편차를 제거하는 것이 <strong>flatten / 조도 보정</strong>이다.</p>
+<h3 id="51-flat-field-correction">5.1 Flat-field correction<a class="headerlink" href="#51-flat-field-correction" title="Permanent link">&para;</a></h3>
+<p>기준 평탄장(flat field) <span class="arithmatex">\(I_{\text{flat}}\)</span> 으로 나누어 게인 불균일을 보정한다.</p>
+<div class="arithmatex">\[
+I_{\text{corr}} = \frac{I}{I_{\text{flat}}}
+\]</div>
+<p>flat field를 직접 측정하기 어려우면, 영상 자체에서 배경을 추정한다.</p>
+<h3 id="52">5.2 배경 추정 후 차감/나눗셈<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<p>저주파 배경 <span class="arithmatex">\(\hat{B}\)</span> 를 다항식 피팅(polynomial surface fitting)이나 저주파 필터
+(large-<span class="arithmatex">\(\sigma\)</span> Gaussian, morphological opening)로 추정한 뒤,</p>
+<ul>
+<li><strong>선형 영역:</strong> 나눗셈 <span class="arithmatex">\(I/\hat{B}\)</span>,</li>
+<li><strong>로그 영역:</strong> 차감 <span class="arithmatex">\(L - \hat{B}\)</span></li>
+</ul>
+<p>로 평탄화한다. 로그 선형화(<a href="../characteristic-curves/">특성 곡선</a>)를 먼저 하면 곱셈적
+조도 변화가 덧셈으로 바뀌어 <strong>차감만으로</strong> 평탄화가 가능해진다.</p>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.ndimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussian_filter</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">flatten_log_domain</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">64</span><span class="p">):</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;로그 영역에서 저주파 배경을 추정해 차감 (조도 평탄화).&quot;&quot;&quot;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">bg</span> <span class="o">=</span> <span class="n">gaussian_filter</span><span class="p">(</span><span class="n">L</span> <span class="o">*</span> <span class="n">mask</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">norm</span> <span class="o">=</span> <span class="n">gaussian_filter</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-6</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">bg</span> <span class="o">=</span> <span class="n">bg</span> <span class="o">/</span> <span class="n">norm</span>                 <span class="c1"># 마스크 경계 누설 보정</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="k">return</span> <span class="p">(</span><span class="n">L</span> <span class="o">-</span> <span class="n">bg</span><span class="p">)</span> <span class="o">*</span> <span class="n">mask</span>
+</span></code></pre></div>
+<h3 id="53-peripheral-equalization">5.3 Peripheral equalization<a class="headerlink" href="#53-peripheral-equalization" title="Permanent link">&para;</a></h3>
+<p>피부선 근처의 얇은 조직(peripheral region)은 과도하게 밝아 내부 조직과 함께 보기
+어렵다. <strong>peripheral equalization</strong>은 가장자리로 갈수록 커지는 보정 이득을 적용해
+얇은 부위를 어둡게 끌어내려 두께 보정을 수행한다. 상세 알고리즘은
+<a href="../../techniques/peripheral-equalization/">peripheral equalization</a>에서 다룬다.</p>
+<h2 id="6-windowing">6. 히스토그램 기반 자동 windowing<a class="headerlink" href="#6-windowing" title="Permanent link">&para;</a></h2>
+<p>WW/WC를 사람이 매번 조절하지 않도록, 히스토그램에서 자동으로 결정하는 방법이 있다.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Percentile 방식</label><label for="__tabbed_1_2">Otsu 방식</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>저/고 percentile(예: 3% / 99.5%)을 black/white point로 삼아 WW/WC를 정한다(§3).
+구현이 단순하고 극단값에 강건하다. 본 프로젝트의 기본 방식.</p>
+</div>
+<div class="tabbed-block">
+<p>Otsu 임계화로 전경(유방)과 배경(공기)을 분리한 뒤, 전경 분포에서 평균±표준편차나
+percentile로 창을 정한다. 배경이 창에 끼어드는 것을 막아 대조도를 키울 수 있다.</p>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">마스크와 함께 쓰기</p>
+<p>어느 방식이든 유방 마스크(breast mask) 내부 픽셀로만 히스토그램을 계산해야 한다.
+공기·배경을 포함하면 분포가 왜곡되어 창이 부정확해진다. 분할은
+<a href="../../techniques/smoothing/">모폴로지/스무딩</a> 참고.</p>
+</div>
+<h2 id="7">7. 정리<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>도구</th>
+<th>작동 범위</th>
+<th>다루는 문제</th>
+<th>한계</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windowing (WW/WC)</td>
+<td>전역(global)</td>
+<td>동적 범위 → 8-bit 매핑</td>
+<td>위치별 편차 불가</td>
+</tr>
+<tr>
+<td>Flatten / flat-field</td>
+<td>전역, 저주파</td>
+<td>균일한 게인·조도 불균일</td>
+<td>국소 대조도 보존 X</td>
+</tr>
+<tr>
+<td>Peripheral equalization</td>
+<td>공간 가변(spatial)</td>
+<td>두께 구배·peripheral thinning</td>
+<td>파라미터 의존</td>
+</tr>
+</tbody>
+</table>
+<p>Windowing은 <a href="../characteristic-curves/">특성 곡선</a>의 선형/시그모이드 곡선의 특수형이며,
+실제 적용은 <a href="../../techniques/lut/">LUT</a>로 미리 계산되어 픽셀당 O(1)로 수행된다. 전체 맥락은
+<a href="../../pipeline/three-tier/">프로젝트 파이프라인</a> 참고.</p>
+<h2 id="_1">참고문헌<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>DICOM PS3.3, <em>Information Object Definitions</em> — Window Center (0028,1050), Window Width (0028,1051), Rescale Slope/Intercept (0028,1053/1052), VOI LUT Module. NEMA.</li>
+<li>Bushberg JT, Seibert JA, Leidholdt EM, Boone JM. <em>The Essential Physics of Medical Imaging</em>, 4th ed. Wolters Kluwer, 2020.</li>
+<li>Pisano ED, et al. "Image processing algorithms for digital mammography: a pictorial essay." <em>RadioGraphics</em> 20(5) (2000): 1479–1491.</li>
+<li>Stefanoyiannis AP, et al. "A digital density equalization technique to improve visualization of breast periphery in mammography." <em>Br. J. Radiol.</em> 76 (2003): 410–420.</li>
+<li>Otsu N. "A Threshold Selection Method from Gray-Level Histograms." <em>IEEE Trans. Syst. Man Cybern.</em> 9(1) (1979): 62–66.</li>
+</ul>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:wh">
+<p>DICOM PS3.3 (0028,1050) <em>Window Center</em>, (0028,1051) <em>Window Width</em> 만이 표준 태그이며 "Window Height"라는 표준 속성은 없다.&#160;<a class="footnote-backref" href="#fnref:wh" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../characteristic-curves/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 특성 곡선과 톤 매핑">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                특성 곡선과 톤 매핑
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../image-quality/metrics/" class="md-footer__link md-footer__link--next" aria-label="Next: MTF·NPS·DQE·CNR">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                MTF·NPS·DQE·CNR
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "content.footnote.tooltips"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

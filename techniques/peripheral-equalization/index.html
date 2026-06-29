@@ -1,0 +1,1954 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Mammogram Processing for All project.">
+      
+      
+        <meta name="author" content="Mammogram Processing for All">
+      
+      
+        <link rel="canonical" href="https://mammogram-processing-for-all.github.io/Raw-processing/techniques/peripheral-equalization/">
+      
+      
+        <link rel="prev" href="../multiscale/">
+      
+      
+        <link rel="next" href="../modern-dl/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Peripheral Equalization과 두께 보상 - Mammogram Processing for All</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#peripheral-equalization-thickness-compensation-flatten" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mammogram Processing for All" class="md-header__button md-logo" aria-label="Mammogram Processing for All" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89">
+  <path d="M3.136,17.387l0,42.932l42.932,21.467l-42.932,-64.399Z" />
+  <path d="M21.91,8l42.933,64.398l-18.775,9.388l-42.932,-64.399l18.774,-9.387Z" style="fill-opacity: 0.5" />
+  <path d="M67.535,17.387l-27.262,18.156l21.878,32.818l5.384,2.691l0,-53.665Z" />
+  <path d="M67.535,17.387l0,53.666l18.774,-9.388l0,-53.665l-18.774,9.387Z" style="fill-opacity: 0.25" />
+</svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mammogram Processing for All
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Peripheral Equalization과 두께 보상
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5M7 15a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Mammogram-processing-for-all/Raw-processing" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Mammogram-processing-for-all/Raw-processing
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mammogram Processing for All" class="md-nav__button md-logo" aria-label="Mammogram Processing for All" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89">
+  <path d="M3.136,17.387l0,42.932l42.932,21.467l-42.932,-64.399Z" />
+  <path d="M21.91,8l42.933,64.398l-18.775,9.388l-42.932,-64.399l18.774,-9.387Z" style="fill-opacity: 0.5" />
+  <path d="M67.535,17.387l-27.262,18.156l21.878,32.818l5.384,2.691l0,-53.665Z" />
+  <path d="M67.535,17.387l0,53.666l18.774,-9.388l0,-53.665l-18.774,9.387Z" style="fill-opacity: 0.25" />
+</svg>
+
+    </a>
+    Mammogram Processing for All
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Mammogram-processing-for-all/Raw-processing" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Mammogram-processing-for-all/Raw-processing
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    홈
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    기초
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    기초
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../foundations/mammography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    맘모그램의 개념
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../foundations/system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    장비의 기본 구조
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../foundations/xray-physics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    X-ray의 성질과 감쇠
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../foundations/detector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    디지털 디텍터와 비선형성
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    영상 형성과 톤 매핑
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    영상 형성과 톤 매핑
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../image-formation/pipeline-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    처리 파이프라인 개요
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../image-formation/characteristic-curves/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    특성 곡선과 톤 매핑
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../image-formation/windowing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windowing / WW·WL / Flatten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    영상 품질 지표
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    영상 품질 지표
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../image-quality/metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MTF·NPS·DQE·CNR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    처리 기법
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    처리 기법
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    기법 개요와 분류
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lut/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LUT (Look-Up Table)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../point-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    점 연산 (Windowing·Gamma·CLAHE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../smoothing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smoothing과 Denoising
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sharpening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharpening과 Edge Enhancement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contrast-enhancement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contrast Enhancement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multiscale/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    다중스케일 분해와 변환영역
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Peripheral Equalization과 두께 보상
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Peripheral Equalization과 두께 보상
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 문제 정의: 두께 구배와 조도 불균일
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 문제 정의: 두께 구배와 조도 불균일">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-peripheral-thinning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 외곽 얇아짐(peripheral thinning)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-heel-effect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 조도 불균일(heel effect 등)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-vs-peripheral-equalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. (고전) 두께 모델 기반 vs 영상 기반 Peripheral Equalization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. (고전) 두께 모델 기반 vs 영상 기반 Peripheral Equalization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-model-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 두께 모델 기반(model-based)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-image-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 영상 기반(image-based)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 두께 맵 추정 방법
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 두께 맵 추정 방법">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 저역 필터 / 다항식 피팅
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-normalized-convolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Normalized convolution (프로젝트 방식)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 형태학적 배경 추정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 외곽만 보정하는 트릭 (프로젝트 방식)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 외곽만 보정하는 트릭 (프로젝트 방식)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 reference 백분위 기준 차감
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-distance-transform-soft-fade-halo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 distance-transform soft fade로 halo 방지
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-flatten" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 전역 조도 평탄화(flatten)와의 관계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 부작용과 검증
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        참고문헌
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modern-dl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    최신 동향 (딥러닝)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    사례 연구
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    사례 연구
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pipeline/three-tier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3-Tier 향상 파이프라인
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Personal research
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Personal research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dukju_baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dukju_baseline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dukju_gemma_skin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dukju_gemma_skin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    참고문헌
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    부록 - Markdown 작성 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 문제 정의: 두께 구배와 조도 불균일
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 문제 정의: 두께 구배와 조도 불균일">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-peripheral-thinning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 외곽 얇아짐(peripheral thinning)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-heel-effect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 조도 불균일(heel effect 등)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-vs-peripheral-equalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. (고전) 두께 모델 기반 vs 영상 기반 Peripheral Equalization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. (고전) 두께 모델 기반 vs 영상 기반 Peripheral Equalization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-model-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 두께 모델 기반(model-based)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-image-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 영상 기반(image-based)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 두께 맵 추정 방법
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 두께 맵 추정 방법">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 저역 필터 / 다항식 피팅
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-normalized-convolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Normalized convolution (프로젝트 방식)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 형태학적 배경 추정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 외곽만 보정하는 트릭 (프로젝트 방식)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 외곽만 보정하는 트릭 (프로젝트 방식)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 reference 백분위 기준 차감
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-distance-transform-soft-fade-halo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 distance-transform soft fade로 halo 방지
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-flatten" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 전역 조도 평탄화(flatten)와의 관계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 부작용과 검증
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        참고문헌
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="peripheral-equalization-thickness-compensation-flatten">Peripheral Equalization과 두께 보상(Thickness Compensation), Flatten<a class="headerlink" href="#peripheral-equalization-thickness-compensation-flatten" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">요약</p>
+<p>압박된 유방은 가장자리(skin line 근처)로 갈수록 두께가 급격히 얇아진다. 두께가 얇으면 <a href="../../foundations/xray-physics/">X-ray 감쇠</a>가 적어 검출기에 도달하는 선량이 많아지고(밝게, 때로 포화), 내부의 두꺼운 부위는 어둡게 표현된다. 그 결과 진단상 중요한 <strong>외곽 조직(peripheral tissue)</strong> 이 잘 보이지 않는다. <strong>Peripheral equalization</strong>(말초 균등화)은 저주파 배경(두께·조도 맵)을 추정해 외곽만 선택적으로 밝기를 보정하여 영상 전체를 한 화면에서 판독 가능하게 만드는 공간적(spatial) 보정이다. 이 문서는 고전적 두께 모델 기반 기법에서 출발하여, 본 <a href="../../pipeline/three-tier/">프로젝트 파이프라인</a>이 채택한 <strong>normalized convolution + distance-transform soft fade</strong> 방식까지 <strong>단순→최신</strong> 순으로 정리한다. 이 단계는 이후 <a href="../multiscale/">다중스케일 분해</a>와 <a href="../contrast-enhancement/">contrast enhancement</a>의 전처리로서 결정적이다.</p>
+</div>
+<p>전체 기법 지형은 <a href="../">기법 개요</a>를 참고하라.</p>
+<hr />
+<h2 id="1">1. 문제 정의: 두께 구배와 조도 불균일<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h3 id="11-peripheral-thinning">1.1 외곽 얇아짐(peripheral thinning)<a class="headerlink" href="#11-peripheral-thinning" title="Permanent link">&para;</a></h3>
+<p>압박판 사이에서 유방은 중앙이 평평하고 외곽으로 갈수록 곡면을 이루며 얇아진다. 두께 <span class="arithmatex">\(t(x)\)</span> 가 얇은 외곽에서는 Beer–Lambert 법칙(<a href="../../foundations/xray-physics/">X-ray 감쇠</a>)에 따라 투과 선량이 지수적으로 커진다.</p>
+<div class="arithmatex">\[
+I_{\text{det}}(x) = I_0 \exp\!\left(-\int \mu\, t(x)\, dl\right)
+\]</div>
+<p><a href="../../foundations/detector/">디텍터/log선형화</a>로 log 변환하면 신호는 두께에 대략 선형이 되지만, 여전히 외곽은 매우 밝고(또는 포화) 내부는 어두운 거대한 저주파 구배가 남는다. 이 구배가 <a href="../../image-formation/windowing/">windowing/flatten</a>에서 좁은 window로 외곽 조직을 가려버리는 원인이다.</p>
+<h3 id="12-heel-effect">1.2 조도 불균일(heel effect 등)<a class="headerlink" href="#12-heel-effect" title="Permanent link">&para;</a></h3>
+<p>X-ray 관의 <strong>heel effect</strong> 때문에 양극(anode)-음극(cathode) 방향으로 입사 선량이 기울어지고, 산란선·기하학적 요인까지 더해져 빈 영역(flat field)조차 균일하지 않다. 이는 두께와 무관한 추가 저주파 구배로, 함께 보정 대상이 된다.</p>
+<div class="admonition note">
+<p class="admonition-title">flat-field 보정과의 차이</p>
+<p>flat-field 보정은 <strong>피사체 없는</strong> 보정 영상(gain/offset)으로 검출기·조도의 고정 패턴을 제거한다(검출기 단계). Peripheral equalization은 <strong>피사체(유방) 영상 자체</strong>에서 두께 기인 저주파 배경을 추정해 보정한다는 점에서 다르다. 둘은 보완적이다.</p>
+</div>
+<hr />
+<h2 id="2-vs-peripheral-equalization">2. (고전) 두께 모델 기반 vs 영상 기반 Peripheral Equalization<a class="headerlink" href="#2-vs-peripheral-equalization" title="Permanent link">&para;</a></h2>
+<p>고전적 접근의 공통 골격은 <strong>저주파 배경(두께/조도 맵) 추정 → 외곽만 선택적 밝기 보정</strong>이다. 추정 방법에 따라 두 갈래로 나뉜다.</p>
+<h3 id="21-model-based">2.1 두께 모델 기반(model-based)<a class="headerlink" href="#21-model-based" title="Permanent link">&para;</a></h3>
+<p>유방을 "중앙은 일정 두께(압박판 간격), 외곽은 반원/구형으로 얇아짐"으로 모델링하여 두께 <span class="arithmatex">\(t(x)\)</span> 를 해석적으로 추정한다. Stahl 등은 두께 분포를 추정해 보정량을 산출했고<sup id="fnref:stahl"><a class="footnote-ref" href="#fn:stahl">1</a></sup>, Byng 등은 외곽 영역의 밝기를 균등화하는 thickness equalization을 제안했으며<sup id="fnref:byng"><a class="footnote-ref" href="#fn:byng">2</a></sup>, Snoeren &amp; Karssemeijer는 검출기·기하 모델 기반의 thickness correction을 정식화했다<sup id="fnref:snoeren"><a class="footnote-ref" href="#fn:snoeren">3</a></sup>. 물리적 근거가 명확하나 압박 형상·환자 변이에 민감하다.</p>
+<h3 id="22-image-based">2.2 영상 기반(image-based)<a class="headerlink" href="#22-image-based" title="Permanent link">&para;</a></h3>
+<p>영상 자체에서 저역 필터로 두께/조도 맵을 추정한다. 모델 가정이 적고 강건하지만, 내부의 실제 구조(저주파 성분)까지 배경으로 빨아들이지 않도록 주의해야 한다. 본 프로젝트는 영상 기반에 속한다.</p>
+<hr />
+<h2 id="3">3. 두께 맵 추정 방법<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1 저역 필터 / 다항식 피팅<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<p>가장 단순하게는 큰 가우시안 저역 필터나 2D 다항식 surface fitting으로 배경 <span class="arithmatex">\(B(x)\)</span> 를 얻는다. 그러나 단순 저역 필터는 마스크 경계(공기/유방 경계)에서 공기의 어두운(또는 밝은) 값이 섞여들어 경계 근처 추정이 오염되는 치명적 문제가 있다.</p>
+<h3 id="32-normalized-convolution">3.2 Normalized convolution (프로젝트 방식)<a class="headerlink" href="#32-normalized-convolution" title="Permanent link">&para;</a></h3>
+<p><strong>Normalized convolution</strong>(Knutsson &amp; Westin, 1993)은 신뢰도 마스크 <span class="arithmatex">\(m(x)\in[0,1]\)</span> 로 가중한 블러를 분자/분모로 정규화해, 마스크 밖(공기) 화소가 추정에 끼어들지 않게 한다<sup id="fnref:knutsson"><a class="footnote-ref" href="#fn:knutsson">4</a></sup>.</p>
+<div class="arithmatex">\[
+B(x) = \frac{\big(m\cdot I\big) * g}{\,m * g\,}
+\]</div>
+<p>분모 <span class="arithmatex">\(m*g\)</span> 가 유효 가중치 합을 보정하므로, <strong>유방 마스크 내부 화소만</strong>으로 외곽까지 매끄럽게 외삽된 두께/조도 맵을 얻는다. breast mask는 파이프라인 초반에 분리된다(<a href="../../pipeline/three-tier/">프로젝트 파이프라인</a>).</p>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">normalized_convolution</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;마스크 가중 블러의 numer/denom 정규화로 두께/조도 맵 추정.&quot;&quot;&quot;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">g</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">sigma</span><span class="p">)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">numer</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">img</span> <span class="o">*</span> <span class="n">mask</span><span class="p">)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">denom</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-6</span>        <span class="c1"># 0 나눗셈 방지</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="k">return</span> <span class="n">numer</span> <span class="o">/</span> <span class="n">denom</span>           <span class="c1"># 마스크 밖 화소는 추정에 미기여</span>
+</span></code></pre></div>
+<h3 id="33">3.3 형태학적 배경 추정<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<p>morphological opening(또는 큰 구조요소의 grayscale opening)으로 작은 구조를 제거하고 거친 배경만 남기는 방법도 쓰인다. 미세 구조는 보존되지만 구조요소 크기 선택에 민감하다.</p>
+<hr />
+<h2 id="4">4. 외곽만 보정하는 트릭 (프로젝트 방식)<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<p>핵심 난제는 "외곽은 들어올리되 <strong>내부 신호와 대비는 건드리지 않고</strong>, 경계에 halo도 만들지 않는" 것이다.</p>
+<h3 id="41-reference">4.1 reference 백분위 기준 차감<a class="headerlink" href="#41-reference" title="Permanent link">&para;</a></h3>
+<p>추정한 두께/조도 맵 <span class="arithmatex">\(B(x)\)</span> 에서, 충분히 두꺼운 내부를 대표하는 <strong>reference 백분위(percentile)</strong> 값 <span class="arithmatex">\(B_{\text{ref}}\)</span> (예: 마스크 내 상위 일정 백분위)를 기준으로 삼는다. 보정량은 각 화소가 기준보다 얼마나 "얇아서 밝은가"에 비례한다.</p>
+<div class="arithmatex">\[
+C(x) = \max\!\big(B(x) - B_{\text{ref}},\, 0\big)
+\]</div>
+<p><span class="arithmatex">\(C(x)\)</span> 를 원본에서 빼면(또는 부호 규약에 맞춰 더하면) 얇은 외곽만 reference 두께 수준으로 끌어올려진다. 내부(<span class="arithmatex">\(B(x)\le B_{\text{ref}}\)</span>)는 <span class="arithmatex">\(C=0\)</span> 이라 <strong>건드리지 않아 내부 대비가 보존</strong>된다.</p>
+<h3 id="42-distance-transform-soft-fade-halo">4.2 distance-transform soft fade로 halo 방지<a class="headerlink" href="#42-distance-transform-soft-fade-halo" title="Permanent link">&para;</a></h3>
+<p>보정을 외곽에 급격히 적용하면 보정 영역과 비보정 영역의 경계에 인공적인 띠(halo/역대비)가 생긴다. 이를 막기 위해 breast mask의 <strong>거리 변환(distance transform)</strong> <span class="arithmatex">\(d(x)\)</span> (skin line으로부터의 거리)로 부드러운 가중치 <span class="arithmatex">\(\alpha(x)\)</span> 를 만든다.</p>
+<div class="arithmatex">\[
+\alpha(x) = \text{smoothstep}\!\big(d(x);\, d_0, d_1\big),\qquad
+I_{\text{out}}(x) = I(x) - \alpha(x)\,C(x)
+\]</div>
+<p>skin line 근처(<span class="arithmatex">\(d\)</span> 작음)에서 보정을 강하게, 내부 깊숙이(<span class="arithmatex">\(d\)</span> 큼)에서는 0으로 매끄럽게 사라지게 하여 경계 halo를 제거한다.</p>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">peripheral_equalize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">bg</span><span class="p">,</span> <span class="n">ref_pct</span><span class="o">=</span><span class="mi">95</span><span class="p">,</span> <span class="n">d0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">d1</span><span class="o">=</span><span class="mi">80</span><span class="p">):</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">ref</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">bg</span><span class="p">[</span><span class="n">mask</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">],</span> <span class="n">ref_pct</span><span class="p">)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">bg</span> <span class="o">-</span> <span class="n">ref</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>              <span class="c1"># 얇은 외곽만 양수</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">dist</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">distanceTransform</span><span class="p">((</span><span class="n">mask</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>                                 <span class="n">cv2</span><span class="o">.</span><span class="n">DIST_L2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">((</span><span class="n">dist</span> <span class="o">-</span> <span class="n">d0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">d1</span> <span class="o">-</span> <span class="n">d0</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">fade</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">a</span>                                 <span class="c1"># 외곽=1, 내부=0</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="k">return</span> <span class="n">img</span> <span class="o">-</span> <span class="n">fade</span> <span class="o">*</span> <span class="n">corr</span>
+</span></code></pre></div>
+<div class="admonition example">
+<p class="admonition-title">프로젝트에서의 위치</p>
+<p><a href="../../pipeline/three-tier/">프로젝트 파이프라인</a>에서 이 단계(peripheral thickness compensation)는 log-linearization과 breast mask 직후, <a href="../multiscale/">다중스케일 분해</a> 직전에 놓인다. 두께 구배를 먼저 평탄화해야 이후 guided filter 분해의 global layer가 두께 구배가 아닌 진짜 조직 구조를 담게 된다.</p>
+</div>
+<hr />
+<h2 id="5-flatten">5. 전역 조도 평탄화(flatten)와의 관계<a class="headerlink" href="#5-flatten" title="Permanent link">&para;</a></h2>
+<p>"flatten"은 넓게 보면 영상에서 거대한 저주파 구배(두께+조도)를 제거해 전 영역을 비슷한 밝기 기준선 위에 올리는 작업이다. peripheral equalization은 그중 <strong>외곽 두께 구배에 특화된 선택적 flatten</strong>이다. 전역 flatten을 무차별로 적용하면 내부의 유용한 저주파 정보(예: 큰 종괴의 완만한 음영)까지 지워질 수 있어, §4처럼 외곽에 국한하는 것이 안전하다. window/level 관점의 flatten은 <a href="../../image-formation/windowing/">windowing/flatten</a>, 톤 곡선 관점은 <a href="../../image-formation/characteristic-curves/">특성 곡선/톤매핑</a>을 참고하라.</p>
+<p>이 단계의 의의는 분명하다. 외곽을 균등화해 두면</p>
+<ul>
+<li>이후 <a href="../multiscale/">다중스케일 분해</a>의 global layer가 두께가 아닌 조직 구조를 포착하고,</li>
+<li><a href="../contrast-enhancement/">contrast enhancement</a>·<a href="../point-operations/">점 연산/CLAHE</a>의 동적범위가 한쪽(외곽 포화)에 낭비되지 않는다.</li>
+</ul>
+<hr />
+<h2 id="6">6. 부작용과 검증<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">과보정의 위험</p>
+<ul>
+<li><strong>Halo / 역대비(contrast reversal)</strong>: 보정량이 크거나 fade가 급격하면 skin line 안쪽에 밝은/어두운 띠가 생긴다. soft fade 폭(<span class="arithmatex">\(d_0,d_1\)</span>)과 reference 백분위를 보수적으로 둔다.</li>
+<li><strong>외곽 잡음 증폭</strong>: 외곽은 본래 SNR이 낮은데 밝기를 올리면 잡음이 두드러진다. <a href="../smoothing/">smoothing/denoising</a>과 순서·강도를 조율한다.</li>
+<li><strong>미세석회 왜곡</strong>: 두께 맵 추정에 작은 구조가 섞이면 외곽 미세석회가 배경으로 흡수돼 사라질 수 있다. normalized convolution의 <span class="arithmatex">\(\sigma\)</span> 를 충분히 크게 해 미세 구조를 배경에 넣지 않는다.</li>
+</ul>
+</div>
+<p>검증은 정성(외곽 조직 가시성, 경계 halo 유무)과 정량을 함께 본다. 균등화 전후의 외곽/내부 밝기 분포 일치도, 그리고 MTF/엣지 보존이 깨지지 않았는지는 <a href="../../image-quality/metrics/">MTF/품질지표</a>로 점검한다.</p>
+<hr />
+<h2 id="_1">참고문헌<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:stahl">
+<p>Stahl, M., Aach, T., &amp; Dippel, S. (2000). <em>Digital radiography enhancement by nonlinear multiscale processing.</em> Medical Physics, 27(1), 56–65. (두께/배경 보정과 다중스케일 결합 맥락)&#160;<a class="footnote-backref" href="#fnref:stahl" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:byng">
+<p>Byng, J. W., Critten, J. P., &amp; Yaffe, M. J. (1997). <em>Thickness-equalization processing for mammographic images.</em> Radiology, 203(2), 564–568.&#160;<a class="footnote-backref" href="#fnref:byng" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:snoeren">
+<p>Snoeren, P. R., &amp; Karssemeijer, N. (2004). <em>Thickness correction of mammographic images by means of a global parameter model of the compressed breast.</em> IEEE Transactions on Medical Imaging, 23(7), 799–806.&#160;<a class="footnote-backref" href="#fnref:snoeren" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:knutsson">
+<p>Knutsson, H., &amp; Westin, C.-F. (1993). <em>Normalized and Differential Convolution: Methods for Interpolation and Filtering of Incomplete and Uncertain Data.</em> CVPR 1993, 515–523.&#160;<a class="footnote-backref" href="#fnref:knutsson" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../multiscale/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 다중스케일 분해와 변환영역">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                다중스케일 분해와 변환영역
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../modern-dl/" class="md-footer__link md-footer__link--next" aria-label="Next: 최신 동향 (딥러닝)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                최신 동향 (딥러닝)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "content.footnote.tooltips"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
