@@ -39,7 +39,19 @@ pip install .
 
 ---
 
+### Viewer
+
+```bash
+python viewer/app.py
+```
+
 ### Docs
+
+Docs tooling lives in the optional `docs` extra:
+
+```bash
+uv sync --extra docs   # or: pip install ".[docs]"
+```
 
 ```bash
 mkdocs serve
