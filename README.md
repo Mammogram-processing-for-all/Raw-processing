@@ -65,15 +65,18 @@ mkdocs serve
 
 ---
 
-## 프로젝트 개요
+## 프로젝트 히스토리
 
-- **주제**: 가짜연구소(PseudoLab) 시즌 12, 1차 프로젝트
+### 1. 가짜연구소(PseudoLab) 시즌 12, 1차 프로젝트
+
 - **기간**: 2026-03 ~ 2026-06
 - **참여자**: Youngmin Joo, Injae Ryou, dongguri92, EuijuHeo, Taehyun Lee
 - **주요 내용**
   - 유방촬영(mammography) **RAW 영상 처리 엔진** — 강도 선형화, masking, windowing/LUT, 대비 강화(CLAHE·다중스케일) 등 RAW 영상 처리 엔진 알고리즘 개발
   - **Viewer** — 처리 결과를 확인하는 시각화 도구 (`viewer/app.py`)
   - **기술 문서(docs)** — X-ray 물리·디텍터 기초부터 톤 매핑, 품질 지표, 처리 기법, 3-Tier 파이프라인 사례까지 정리한 서베이 문서 ([사이트](https://mammogram-processing-for-all.github.io/Raw-processing/))
+
+### 2. 1차 프로젝트 마무리 및 개선(2026년 하반기 예정)
 
 ## 향후 로드맵
 
