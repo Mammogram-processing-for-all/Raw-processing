@@ -80,28 +80,33 @@ extra_javascript:
 
 # Page tree
 nav:
-  - Home: index.md
-  - Preprocessing:
-    - Pipeline Overview: preprocessing/pipeline-overview.md
-    - DICOM Basics: preprocessing/dicom-basics.md
-    - Windowing: preprocessing/windowing.md
-    - LUT: lut.md
-    - Breast Masking: preprocessing/masking.md
-    - Histogram Matching: preprocessing/histogram-matching.md
-    - CLAHE: preprocessing/clahe.md
-    - Denoising: preprocessing/denoising.md
-    - Laplacian Pyramid: preprocessing/laplacian-pyramid.md
-    - RAW → DCM Restoration: preprocessing/raw-to-dcm.md
-  - Quality Metrics:
-    - Overview: quality-metrics/index.md
-    - Pixel Error (MAE/MSE/PSNR): quality-metrics/pixel-error.md
-    - SSIM: quality-metrics/ssim.md
-    - MS-SSIM: quality-metrics/ms-ssim.md
-    - IoU: quality-metrics/iou.md
-    - Tenengrad: quality-metrics/tenengrad.md
-  - Clinical Background:
-    - Views (CC/MLO): clinical/views.md
-    - Lesion Types: clinical/lesion-types.md
+  - 홈: index.md
+  - 기초:
+      - 맘모그램의 개념: foundations/mammography.md
+      - 장비의 기본 구조: foundations/system.md
+      - X-ray의 성질과 감쇠: foundations/xray-physics.md
+      - 디지털 디텍터와 비선형성: foundations/detector.md
+  - 영상 형성과 톤 매핑:
+      - 처리 파이프라인 개요: image-formation/pipeline-overview.md
+      - 특성 곡선과 톤 매핑: image-formation/characteristic-curves.md
+      - Windowing / WW·WL / Flatten: image-formation/windowing.md
+  - 영상 품질 지표:
+      - MTF·NPS·DQE·CNR: image-quality/metrics.md
+  - 처리 기법:
+      - 기법 개요와 분류: techniques/index.md
+      - LUT (Look-Up Table): techniques/lut.md
+      - 점 연산 (Windowing·Gamma·CLAHE): techniques/point-operations.md
+      - Smoothing과 Denoising: techniques/smoothing.md
+      - Sharpening과 Edge Enhancement: techniques/sharpening.md
+      - Contrast Enhancement: techniques/contrast-enhancement.md
+      - 다중스케일 분해와 변환영역: techniques/multiscale.md
+      - Peripheral Equalization과 두께 보상: techniques/peripheral-equalization.md
+      - 최신 동향 (딥러닝): techniques/modern-dl.md
+  - 사례 연구:
+      - 3-Tier 향상 파이프라인: pipeline/three-tier.md
   - Personal research:
-    - dukju_baseline: dukju_baseline.md
-    - dukju_gemma_skin: dukju_gemma_skin.md
+      - dukju_baseline: dukju_baseline.md
+      - dukju_gemma_skin: dukju_gemma_skin.md
+  - 참고문헌: references.md
+  - 부록 - Markdown 작성 가이드: examples.md
+
