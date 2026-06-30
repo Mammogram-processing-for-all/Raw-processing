@@ -107,6 +107,10 @@ nav:
   - Personal research:
       - dukju_baseline: dukju_baseline.md
       - dukju_gemma_skin: dukju_gemma_skin.md
+      - euiju_overview: euiju_pipeline_overview.md
+      - euiju_module_a_analysis: euiju_module_a_analysis.md
+      - euiju_module_b_analysis: euiju_module_b_analysis.md
+      - euiju_module_c_analysis: euiju_module_c_analysis.md
   - 참고문헌: references.md
   - 부록 - Markdown 작성 가이드: examples.md
 
